@@ -1,5 +1,8 @@
 import Joi from 'joi';
 import CustomErrorHandler from '../../services/CustomErrorHandler';
+import { User } from '../../models';
+import JwtService from '../../services/JwtService';
+import bcrypt from 'bcrypt';
 const registerController = {
     async register(req,res,next){
         //logic
@@ -33,10 +36,35 @@ const registerController = {
               return next(CustomErrorHandler.alreadyExist('This email is alreay exist'));
           }
         }catch(err){
-
+              return next(err);    
         }
 
-        res.json({msg: "hello from server",error});
+
+        //Hash Password
+        const hashPassword = await bcrypt.hash(req.body.password,10);
+
+        // prepare the model
+        const {name,email,password} = req.body;
+        const user = new User({
+            name,
+            email,
+            password: hashPassword
+        })
+        let access_token;
+        try{
+            const result = await user.save();
+
+            //Token
+            access_token = JwtService.sign({_id: result._id,role: result.role, });
+ 
+
+        }catch(err){
+            return next(err);
+        }
+
+
+
+        res.json({access_token});
     }
 }
 
