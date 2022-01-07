@@ -1,4 +1,5 @@
 import Joi from 'joi';
+import CustomErrorHandler from '../../services/CustomErrorHandler';
 const registerController = {
     async register(req,res,next){
         //logic
@@ -29,7 +30,7 @@ const registerController = {
         try{
           const exist = await User.exists({email: req.body.email});// return true or false
           if(exist){
-              
+              return next(CustomErrorHandler.alreadyExist('This email is alreay exist'));
           }
         }catch(err){
 
