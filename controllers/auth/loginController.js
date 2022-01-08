@@ -5,7 +5,7 @@ import bcrypt from 'bcrypt';
 import JwtService from '../../services/JwtService';
 const loginController = {
     async login(req,res,next){
-        console.log("LOGIN KE ANDER");
+        //console.log("LOGIN KE ANDER");
         // Validaton
         const loginSchema = Joi.object({
             email: Joi.string().email().required(),
