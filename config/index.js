@@ -4,5 +4,6 @@ export const {
     APP_PORT,
     DEBUG_MODE,
     MONGO_URL,
-    SECRET
+    SECRET,
+    REFRESH_SECRET
 } = process.env;

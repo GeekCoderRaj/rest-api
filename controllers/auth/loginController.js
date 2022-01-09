@@ -1,5 +1,6 @@
 import Joi from 'joi';
-import { User } from '../../models';
+import { User , RefreshToken} from '../../models';
+import { REFRESH_SECRET } from '../../config';
 import CustomErrorHandler from '../../services/CustomErrorHandler';
 import bcrypt from 'bcrypt';
 import JwtService from '../../services/JwtService';
@@ -30,7 +31,15 @@ const loginController = {
 
            //Token
            const access_token = JwtService.sign({_id: user._id,role: user.role });
-           res.json({access_token});
+           const refresh_token = JwtService.sign({_id: user._id,role: user.role, },'1y',REFRESH_SECRET);
+            // console.log(refresh_token);
+ 
+            //database whitelist
+            const refreshtoken = new RefreshToken({
+                refresh_token
+            })
+            await refreshtoken.save();
+           res.json({access_token, refresh_token});
                
 
         }catch(err){
