@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 import { MONGO_URL } from '.';
 const connectDB = async() =>{
     const conn = await mongoose.connect(MONGO_URL,{

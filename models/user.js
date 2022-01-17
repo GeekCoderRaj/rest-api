@@ -1,4 +1,5 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
+//console.log(mongoose);
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({

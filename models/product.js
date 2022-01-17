@@ -1,17 +1,25 @@
-import { mongoose } from "mongoose";
-
+import { number } from "joi";
+import mongoose from "mongoose";
 const Schema = mongoose.Schema;
 
 const productSchema = new Schema({
+    type:{
+        type: String,
+        required: true
+    },
     name :{
         type: String,
         required: true
     },
-    price:{
+    description:{
         type: String,
         required: true
     },
-    size:{
+    sizes:{
+        type: Number,
+        required: true
+    },
+    price:{
         type: String,
         required: true
     },

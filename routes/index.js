@@ -1,5 +1,5 @@
 import express from "express";
-import {registerController, loginController, userController, refreshController} from "../controllers";
+import {registerController, loginController, userController, refreshController, productController} from "../controllers";
 import auth from "../middlewares/auth";
 const router = express.Router();
 
@@ -9,5 +9,4 @@ router.get('/me',auth,userController.me);
 router.post('/refresh',refreshController.refresh);
 router.post('/product',productController.store);
 
-
-export default router;
+export default router;  
